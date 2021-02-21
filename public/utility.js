@@ -12,6 +12,9 @@ const loader = PIXI.Loader.shared;
 function texture(path) {
   return loader.resources['/assets/' + path].texture;
 }
+function sound(path) {
+  return loader.resources['/assets/' + path].sound;
+}
 
 function dist(a, b) {
   let dx = Math.abs(a.x - b.x);

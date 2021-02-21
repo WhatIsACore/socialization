@@ -10,6 +10,11 @@ module.exports = {
       x: 10, y: 70,
       destination: 'mainFloor',
       entrance: 'restroom'
+    },
+    {
+      x: 10, y: 50,
+      destination: 'mainFloor',
+      entrance: 'restroom'
     }
   ]
 }

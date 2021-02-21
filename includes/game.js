@@ -16,11 +16,20 @@ function init(server) {
   createRoom('restroom', 'restroom');
 
   io.on('connection', socket => {
-    let player = createPlayer('guest', socket);
-    player.joinRoom(rooms['mainFloor'], 'clubEntrance');
+    socket.on('setName', name => {
+      if (socket.player) return;
+      let player = createPlayer(name.length > 0 ? name : 'guest', socket);
+      player.joinRoom(rooms['mainFloor'], 'clubEntrance');
+    });
+
+    setTimeout(() => {
+      if (socket.player) return;
+      socket.disconnect();
+    }, 15 * 1000); // disconnect if no name is provided within 15 sec
 
     socket.on('joinRoom', (id, entrance) => {
-      player.joinRoom(rooms[id], entrance);
+      if (!socket.player) return;
+      socket.player.joinRoom(rooms[id], entrance);
     });
   });
 }

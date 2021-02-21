@@ -23,7 +23,8 @@ function Main() {
 const resourceList = [
   'bg/mainFloor.png',
   'bg/restroom.png',
-  'chars/koala.png'
+  'chars/koala.png',
+  'audio/moneymachine.mp3'
 ];
 
 Main.prototype.loadSprites = function() {

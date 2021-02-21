@@ -2,6 +2,7 @@
 
 const Game = function(stage) {
   this.socket = io();
+  this.socket.emit('setName', $('#name').value);
   this.stage = stage;
   this.players = {};
 
@@ -16,6 +17,9 @@ const Game = function(stage) {
 
   this.offsetX = this.mapSprite.x - (this.mapSprite.width / this.mapScale);
   this.offsetY = this.mapSprite.y - (this.mapSprite.height / this.mapScale);
+
+  this.music = sound('audio/moneymachine.mp3');
+  this.music.play({ loop: true });
 
   this.socket.on('roomdata', this.loadMap.bind(this));
   this.socket.on('addPlayer', this.addPlayer.bind(this));
@@ -58,6 +62,13 @@ Game.prototype.loadMap = function(data, selfId) {
 
   // find yourself
   this.self = this.players[selfId];
+
+  // audio filter
+  if (data.roomId == 'restroom') {
+    this.music.filters = [new PIXI.sound.filters.ReverbFilter(1, 10)];
+  } else {
+    this.music.filters = [];
+  }
 }
 
 Game.prototype.addPlayer = function(data) {
