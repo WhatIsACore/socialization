@@ -13,10 +13,15 @@ function init(server) {
 
   // create the rooms we need
   createRoom('mainFloor', 'mainFloor');
+  createRoom('restroom', 'restroom');
 
   io.on('connection', socket => {
     let player = createPlayer('guest', socket);
     player.joinRoom(rooms['mainFloor'], 'clubEntrance');
+
+    socket.on('joinRoom', (id, entrance) => {
+      player.joinRoom(rooms[id], entrance);
+    });
   });
 }
 module.exports.init = init;

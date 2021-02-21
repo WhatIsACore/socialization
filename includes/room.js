@@ -1,6 +1,7 @@
 'use strict';
 
 const logger = require('./logger'),
+      util = require('./utility'),
       maps = require('./maps');
 
 const Room = function(id, io, baseMap) {
@@ -42,4 +43,12 @@ Room.prototype.getState = function() {
     };
   }
   return res;
+}
+
+// returns an exit if a position is near one
+Room.prototype.findExit = function(position) {
+  for (let exit of this.map.exits)
+    if (util.dist(position, exit) < 15)
+      return exit;
+  return false;
 }

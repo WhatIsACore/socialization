@@ -1,7 +1,8 @@
 'use strict';
 
 const mapData = {
-  mainFloor: require('./maps/mainFloor')
+  mainFloor: require('./maps/mainFloor'),
+  restroom: require('./maps/restroom')
 }
 
 // returns map data
